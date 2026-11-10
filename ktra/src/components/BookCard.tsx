@@ -3,21 +3,25 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {Book} from '../types/Book';
 import {colors, radius, spacing} from '../theme/colors';
 
-type Props = {book: Book; onPress: () => void; onLongPress: () => void};
+//khai báo
+type Props = {book: Book; onPress: () => void; onLongPress: () => void}; //hàm khi nhấn , khi giữ
+//khai báo tt 1 quyển
 export default function BookCard({book, onPress, onLongPress}: Props) {
-  const available = book.quantity - book.borrowed;
+  const available = book.quantity - book.borrowed; // tính số lượng còn(hiệu số)
   return (
+    //vùng tương tác
     <Pressable accessibilityRole="button" onPress={onPress} onLongPress={onLongPress} delayLongPress={450} style={({pressed}) => [styles.card, pressed && styles.pressed]}>
       <View style={styles.cover}><Text style={styles.coverIcon}>▤</Text></View>
-      <View style={styles.info}>
-        <Text numberOfLines={2} style={styles.title}>{book.title}</Text>
+      <View style={styles.info}> 
+        <Text numberOfLines={2} style={styles.title}>{book.title}</Text> 
         <Text numberOfLines={1} style={styles.author}>{book.author}</Text>
         <View style={styles.bottom}>
           <Text style={styles.category}>{book.category}</Text>
+          //hiển thị sách còn
           <Text style={[styles.stock, available === 0 && styles.empty]}>{available === 0 ? 'Hết sách' : `Còn ${available} cuốn`}</Text>
         </View>
       </View>
-      <Text style={styles.chevron}>›</Text>
+      <Text style={styles.chevron}>›</Text> //xem chi tiet
     </Pressable>
   );
 }
